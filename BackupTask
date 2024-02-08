@@ -16,16 +16,19 @@ SELECT TOP 10000 Count([vBoNetContactData].[ID]) AS [ID],
   WHERE [vBoNetContactData].[MemberType] = 'SW'
   GROUP BY [vBoNetContactData].[Status]
 
-  //Step 2
-  //Create a panel for the Backups
-  //Mine is called SWRB_Backups
-  //Contains Status, Count and Backup_Date
+//Step 2
+//Create a panel for the Backups
+//Mine is called SWRB_Backups
+//Contains Status, Count and Backup_Date
 
-  //Step 3
-  //Using CSI tools, iUpdate, map the IQA wwith the panel data
-  Panel Data (SWRB_Backup).Backup_Date = Date Recorded
-  Panel Data (SWRB_Backup).Count = ID
-  Panel Data (SWRB_Backup).Status = Status
+//Step 3
+//Using CSI tools, iUpdate, map the IQA wwith the panel data
+Panel Data (SWRB_Backup).Backup_Date = Date Recorded
+Panel Data (SWRB_Backup).Count = ID
+Panel Data (SWRB_Backup).Status = Status
 
-  //Step 4
-  //Set this as a monthly scheduled task in CSI
+//Step 4
+//Set this as a monthly scheduled task in CSI
+
+//Step 5
+//Build a dashboard using the backup panel data
