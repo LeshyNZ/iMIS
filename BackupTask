@@ -1,0 +1,31 @@
+//Task to backup data at point in time for reporting
+
+//Step 1
+//Set up query for data to be recorded
+//I have used Status, ID(Count) and added a date column for the current date as date recorded
+
+//IQA
+SELECT TOP 10000 Count([vBoNetContactData].[ID]) AS [ID], 
+    [vBoNetContactData].[Status], 
+    CONVERT(char(10), 
+    DATEADD(HH,
+    +12,
+    GetDate()),
+    126)	 AS [Date Recorded]
+  FROM  vBoNetContactData
+  WHERE [vBoNetContactData].[MemberType] = 'SW'
+  GROUP BY [vBoNetContactData].[Status]
+
+  //Step 2
+  //Create a panel for the Backups
+  //Mine is called SWRB_Backups
+  //Contains Status, Count and Backup_Date
+
+  //Step 3
+  //Using CSI tools, iUpdate, map the IQA wwith the panel data
+  Panel Data (SWRB_Backup).Backup_Date = Date Recorded
+  Panel Data (SWRB_Backup).Count = ID
+  Panel Data (SWRB_Backup).Status = Status
+
+  //Step 4
+  //Set this as a monthly scheduled task in CSI
